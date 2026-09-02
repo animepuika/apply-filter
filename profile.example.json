@@ -1,0 +1,32 @@
+{
+  "_readme": [
+    "Copy this to profile.json and edit it. profile.json is gitignored.",
+    "Nothing here is sent anywhere. It is read locally to score postings."
+  ],
+
+  "name": "Your Name",
+
+  "_years_note": "Years of professional experience. Used to judge how far out of reach a posting's stated experience floor is. Count paid work, not study.",
+  "years_experience": 1,
+
+  "_home_note": [
+    "Home is where going into an office is acceptable. Everything else is",
+    "remote-only. This is the rule the whole filter exists to express, and it",
+    "is why there is no list of acceptable countries anywhere in this project.",
+    "",
+    "aliases:    strings that mean 'this job is at home'. Country, cities, and",
+    "            any spelling variants including local diacritics.",
+    "covered_by: broader regions that include home. An aggregator listing",
+    "            'Europe' covers someone in Portugal; one listing 'United",
+    "            States' does not. Worldwide, anywhere and global are always",
+    "            treated as covering you, so there is no need to add them."
+  ],
+  "home": {
+    "country": "Portugal",
+    "aliases": ["portugal", "lisbon", "lisboa", "porto"],
+    "covered_by": ["europe", "european", "emea", "eu", "eea"]
+  },
+
+  "_resume_note": "Path to a markdown CV, relative to the project root. Read only to check which skills named in a job title you actually have. Optional: without it, stack matching is skipped and everything else still works.",
+  "resume": "resume.md"
+}

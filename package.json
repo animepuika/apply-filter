@@ -1,0 +1,14 @@
+{
+  "name": "ats-job-aggregator",
+  "version": "1.0.0",
+  "description": "Reads open engineering roles from companies' own applicant tracking systems and filters them by whether you could actually take the job",
+  "type": "module",
+  "license": "MIT",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "scan": "node scripts/fetch-jobs.mjs",
+    "scan:all": "node scripts/fetch-jobs.mjs --keep-seen",
+    "probe": "node scripts/probe.mjs"
+  },
+  "keywords": ["job-search", "ats", "greenhouse", "lever", "ashby", "teamtailor", "remote-work"]
+}

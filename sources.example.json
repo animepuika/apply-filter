@@ -1,0 +1,208 @@
+{
+  "_readme": [
+    "Which job boards to read, and how to filter what comes back.",
+    "board: greenhouse | lever | ashby | teamtailor | recruitee | workable",
+    "       | remoteok | remotive | arbeitnow | jobicy | himalayas",
+    "slug:  the company identifier in that board's URL. Aggregators ignore it.",
+    "",
+    "Check a slug before adding it:  node scripts/probe.mjs all <slug>",
+    "A wrong slug fails loudly in the run output rather than silently returning",
+    "nothing, which is the failure mode that wasted the most time building this."
+  ],
+  "companies": [
+    {
+      "name": "Lokalise",
+      "board": "greenhouse",
+      "slug": "lokalise"
+    },
+    {
+      "name": "Veriff",
+      "board": "greenhouse",
+      "slug": "veriff"
+    },
+    {
+      "name": "Wolt",
+      "board": "greenhouse",
+      "slug": "wolt"
+    },
+    {
+      "name": "GitLab",
+      "board": "greenhouse",
+      "slug": "gitlab"
+    },
+    {
+      "name": "Adyen",
+      "board": "greenhouse",
+      "slug": "adyen"
+    },
+    {
+      "name": "Doctolib",
+      "board": "greenhouse",
+      "slug": "doctolib"
+    },
+    {
+      "name": "Contentful",
+      "board": "greenhouse",
+      "slug": "contentful"
+    },
+    {
+      "name": "Typeform",
+      "board": "greenhouse",
+      "slug": "typeform"
+    },
+    {
+      "name": "Spotify",
+      "board": "lever",
+      "slug": "spotify"
+    },
+    {
+      "name": "Pipedrive",
+      "board": "lever",
+      "slug": "pipedrive"
+    },
+    {
+      "name": "Canonical",
+      "board": "greenhouse",
+      "slug": "canonical"
+    },
+    {
+      "name": "Grafana",
+      "board": "greenhouse",
+      "slug": "grafanalabs"
+    },
+    {
+      "name": "Remote.com",
+      "board": "greenhouse",
+      "slug": "remotecom"
+    },
+    {
+      "name": "Vercel",
+      "board": "greenhouse",
+      "slug": "vercel"
+    },
+    {
+      "name": "Supabase",
+      "board": "ashby",
+      "slug": "supabase"
+    },
+    {
+      "name": "Zapier",
+      "board": "ashby",
+      "slug": "zapier"
+    },
+    {
+      "name": "Mintos",
+      "board": "teamtailor",
+      "slug": "mintos"
+    },
+    {
+      "name": "Edurio",
+      "board": "teamtailor",
+      "slug": "edurio"
+    },
+    {
+      "name": "RemoteOK",
+      "board": "remoteok",
+      "slug": "-"
+    },
+    {
+      "name": "Remotive",
+      "board": "remotive",
+      "slug": "-"
+    },
+    {
+      "name": "Arbeitnow",
+      "board": "arbeitnow",
+      "slug": "-"
+    },
+    {
+      "name": "Jobicy",
+      "board": "jobicy",
+      "slug": "-"
+    },
+    {
+      "name": "Himalayas",
+      "board": "himalayas",
+      "slug": "-"
+    }
+  ],
+  "_finding_a_slug": [
+    "Open a company's careers page and read the URL.",
+    "  boards.greenhouse.io/<slug>      -> greenhouse",
+    "  jobs.lever.co/<slug>             -> lever",
+    "  jobs.ashbyhq.com/<slug>          -> ashby",
+    "  <slug>.teamtailor.com            -> teamtailor",
+    "  <slug>.recruitee.com             -> recruitee",
+    "  apply.workable.com/<slug>        -> workable",
+    "Teamtailor is worth trying on any smaller European employer. Its feed",
+    "lives at <slug>.teamtailor.com/jobs.rss and carries a <remoteStatus> plus",
+    "a structured city and country, which is better data than most JSON APIs."
+  ],
+  "filters": {
+    "title_include": [
+      "full stack",
+      "fullstack",
+      "full-stack",
+      "frontend",
+      "front end",
+      "front-end",
+      "web developer",
+      "web engineer",
+      "react",
+      "javascript",
+      "typescript",
+      "node",
+      "vue",
+      "angular",
+      "software engineer",
+      "developer",
+      "engineer",
+      "backend",
+      "back end",
+      "back-end",
+      "python",
+      "java",
+      "django",
+      "machine learning",
+      "graduate",
+      "junior",
+      "trainee"
+    ],
+    "_title_note": "A posting must match one of these to survive. Broad terms stay in so nothing good is missed; the prescore does the ranking afterwards.",
+    "title_exclude": [
+      "senior",
+      "staff",
+      "principal",
+      "lead",
+      "head of",
+      "manager",
+      "director",
+      "architect",
+      "sales",
+      "marketing",
+      "recruiter",
+      "designer",
+      "accountant",
+      "counsel",
+      "legal",
+      "finance",
+      "customer success",
+      "account executive",
+      "solutions engineer",
+      "sales engineer",
+      "support engineer",
+      "engineering manager"
+    ],
+    "_exclude_note": "Bare single words match on word boundaries, so 'intern' does not eat 'International' and 'lead' does not eat 'Leadership'. Phrases with spaces or punctuation match as plain substrings. That bug once cost 351 of 352 postings.",
+    "_location_note": [
+      "There is deliberately no location allowlist here.",
+      "Where you can work is expressed in profile.json as a home region, and",
+      "applied by workMode() in scripts/fetch-jobs.mjs: remote is fine",
+      "anywhere, on-site and hybrid are home only.",
+      "",
+      "An earlier version did use a country list. It was wrong in both",
+      "directions at once: it dropped remote roles in India that were fine and",
+      "kept office jobs in Amsterdam that were not."
+    ]
+  }
+}

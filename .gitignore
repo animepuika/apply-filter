@@ -1,0 +1,17 @@
+# Your details and your CV. Never commit these.
+profile.json
+resume.md
+resume.pdf
+*.pdf
+
+# Your own board list, once you have edited it.
+sources.json
+
+# Generated on every run.
+feed/
+shortlist.md
+
+# Captured postings and anything you draft from them.
+jobs/
+
+node_modules/
