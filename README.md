@@ -94,6 +94,7 @@ output with its error and its attempt count.
 | `probe.mjs` | Tests whether a company slug is live before you add it |
 | `add-job.mjs` | Captures a single posting from a URL into a markdown file |
 | `make-pdf.mjs` | Renders a markdown CV or letter to an ATS-readable one-page A4 PDF |
+| `build-page.mjs` | Builds a browsable HTML dashboard from everything you have scored |
 
 ```bash
 node scripts/probe.mjs all supabase          # which board is this company on?
@@ -101,7 +102,42 @@ node scripts/fetch-jobs.mjs --keep-seen      # full list, not just what is new
 node scripts/fetch-jobs.mjs --all            # ignore filters, dump everything
 node scripts/add-job.mjs "<job url>"         # capture one posting
 node scripts/make-pdf.mjs cv.md              # one page or it refuses to build
+node scripts/build-page.mjs                  # rebuild the dashboard
 ```
+
+### Scoring your own applications
+
+`fetch-jobs.mjs`'s score is a keyword prescore. It ranks a few thousand
+postings down to a shortlist; it is not a judgement about whether you should
+apply. The real read is you, against the full posting, and the dashboard is
+built to show that read once you have written it down.
+
+For any posting you have looked at properly, drop a `jobs/<slug>/score.md` next
+to its `jd.md` (from `add-job.mjs`, or written by hand):
+
+```markdown
+# Score: 71 / 100
+
+**Verdict: apply.** ...your reasoning...
+```
+
+`build-page.mjs` reads the `# Score:` line and the `**Verdict:` line out of
+every `jobs/*/score.md` it finds. A real score always overrides the keyword
+prescore for that posting, on both a bulk-fetched role and one captured with
+`add-job.mjs` from a single pasted link. A folder that never appeared in the
+bulk fetch still gets a full row on the dashboard, built from what
+`add-job.mjs` wrote into the `jd.md` head.
+
+An optional `applications.md` in the same shape tracks status:
+
+```markdown
+| Date | Company | Role | Location | Score | Status | Folder | Notes |
+|---|---|---|---|---|---|---|---|
+| 2026-09-03 | Acme | Backend Engineer | Remote | 71 | drafted | jobs/acme-backend-engineer | |
+```
+
+Run `node scripts/build-page.mjs` and open `feed/page.html`. Neither
+`jobs/` nor `applications.md` is committed; both are yours.
 
 ### The PDF renderer
 

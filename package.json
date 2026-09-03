@@ -8,7 +8,8 @@
   "scripts": {
     "scan": "node scripts/fetch-jobs.mjs",
     "scan:all": "node scripts/fetch-jobs.mjs --keep-seen",
-    "probe": "node scripts/probe.mjs"
+    "probe": "node scripts/probe.mjs",
+    "dashboard": "node scripts/build-page.mjs"
   },
   "keywords": ["job-search", "ats", "greenhouse", "lever", "ashby", "teamtailor", "remote-work"]
 }

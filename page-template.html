@@ -1,0 +1,749 @@
+<title>Applications for Software Engineering</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,600;1,400&display=swap">
+
+<style>
+  /* Light palette. Neutrals carry a slight teal bias so they read as chosen
+     rather than inherited grey. */
+  :root {
+    --ground:   #f6f8f9;
+    --surface:  #ffffff;
+    --raised:   #eef2f4;
+    --ink:      #101a1e;
+    --ink-soft: #3d5158;
+    --muted:    #5c7078;
+    --line:     #dce5e8;
+    --line-firm:#c3d1d6;
+    --accent:   #0d7a78;
+    --accent-ink:#ffffff;
+    --accent-wash:#e2f0ef;
+    --strong:   #1f7a4d;
+    --strong-wash:#e3f2e9;
+    --caution:  #a8681a;
+    --caution-wash:#f7edde;
+    --dim:      #6b7f86;
+    --dim-wash: #ebeff1;
+    --shadow:   0 1px 2px rgba(16, 26, 30, .06), 0 4px 16px rgba(16, 26, 30, .05);
+  }
+
+  /* System-default dark. Guarded so an explicit light choice still wins. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:   #0f1518;
+      --surface:  #161e22;
+      --raised:   #1d272c;
+      --ink:      #e4edf0;
+      --ink-soft: #b3c4ca;
+      --muted:    #8ba1a8;
+      --line:     #253238;
+      --line-firm:#33454c;
+      --accent:   #3fb0aa;
+      --accent-ink:#08201f;
+      --accent-wash:#14312f;
+      --strong:   #5cc48c;
+      --strong-wash:#12301f;
+      --caution:  #d99b46;
+      --caution-wash:#33260f;
+      --dim:      #8ba1a8;
+      --dim-wash: #1d272c;
+      --shadow:   0 1px 2px rgba(0, 0, 0, .4), 0 4px 16px rgba(0, 0, 0, .3);
+    }
+  }
+
+  /* Explicit dark choice. */
+  :root[data-theme="dark"] {
+    --ground:   #0f1518;
+    --surface:  #161e22;
+    --raised:   #1d272c;
+    --ink:      #e4edf0;
+    --ink-soft: #b3c4ca;
+    --muted:    #8ba1a8;
+    --line:     #253238;
+    --line-firm:#33454c;
+    --accent:   #3fb0aa;
+    --accent-ink:#08201f;
+    --accent-wash:#14312f;
+    --strong:   #5cc48c;
+    --strong-wash:#12301f;
+    --caution:  #d99b46;
+    --caution-wash:#33260f;
+    --dim:      #8ba1a8;
+    --dim-wash: #1d272c;
+    --shadow:   0 1px 2px rgba(0, 0, 0, .4), 0 4px 16px rgba(0, 0, 0, .3);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 40px 24px 96px;
+  }
+
+  /* ---------------------------------------------------------------- masthead */
+
+  .masthead {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    padding-bottom: 22px;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  h1 {
+    font-family: "IBM Plex Serif", Georgia, serif;
+    font-weight: 600;
+    font-size: clamp(30px, 4.4vw, 44px);
+    line-height: 1.08;
+    letter-spacing: -.017em;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .standfirst {
+    margin: 10px 0 0;
+    max-width: 58ch;
+    color: var(--ink-soft);
+    font-size: 15.5px;
+  }
+
+  .stamp {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11.5px;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: right;
+    line-height: 1.7;
+    white-space: nowrap;
+  }
+  .stamp b { color: var(--ink); font-weight: 600; }
+
+  /* ---------------------------------------------------------------- summary */
+
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+    gap: 1px;
+    margin: 0 0 26px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-top: none;
+  }
+
+  .tile {
+    background: var(--surface);
+    padding: 16px 18px 14px;
+  }
+
+  .tile .n {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 27px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -.02em;
+  }
+  .tile .k {
+    display: block;
+    margin-top: 7px;
+    font-size: 11.5px;
+    letter-spacing: .055em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .tile.is-accent .n { color: var(--accent); }
+  .tile.is-strong .n { color: var(--strong); }
+
+  /* ---------------------------------------------------------------- caveat */
+
+  .caveat {
+    display: flex;
+    gap: 12px;
+    padding: 13px 16px;
+    margin: 0 0 26px;
+    background: var(--caution-wash);
+    border-left: 3px solid var(--caution);
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .caveat b { color: var(--ink); font-weight: 600; }
+
+  /* ---------------------------------------------------------------- controls */
+
+  .controls {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--ground);
+    padding: 12px 0 14px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .search {
+    flex: 1 1 240px;
+    min-width: 200px;
+    padding: 9px 13px;
+    font: inherit;
+    font-size: 14px;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--line-firm);
+    border-radius: 3px;
+  }
+  .search::placeholder { color: var(--muted); }
+  .search:focus-visible,
+  select:focus-visible,
+  .chip:focus-visible,
+  .rowlink:focus-visible,
+  .mark:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  select {
+    padding: 9px 11px;
+    font: inherit;
+    font-size: 13.5px;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--line-firm);
+    border-radius: 3px;
+  }
+
+  .chip {
+    font: inherit;
+    font-size: 12.5px;
+    font-weight: 500;
+    padding: 8px 13px;
+    border-radius: 999px;
+    border: 1px solid var(--line-firm);
+    background: var(--surface);
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .chip[aria-pressed="true"] {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-ink);
+  }
+
+  .count {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12px;
+    color: var(--muted);
+    margin-left: auto;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  /* ---------------------------------------------------------------- bands */
+
+  .band-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin: 30px 0 0;
+    padding: 0 0 8px;
+    border-bottom: 1px solid var(--line-firm);
+  }
+  .band-head h2 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .band-head .rule {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11.5px;
+    color: var(--muted);
+  }
+  .band-head .tally {
+    margin-left: auto;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11.5px;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------------------------------------------------------------- rows */
+
+  ol.rows { list-style: none; margin: 0; padding: 0; }
+
+  .row {
+    display: grid;
+    grid-template-columns: 30px 52px minmax(0, 1fr) auto;
+    gap: 0 14px;
+    align-items: start;
+    padding: 13px 12px 13px 9px;
+    border-bottom: 1px solid var(--line);
+    border-left: 3px solid transparent;
+    background: var(--surface);
+  }
+  .row:hover { background: var(--raised); }
+  .row.b-strong  { border-left-color: var(--strong); }
+  .row.b-worth   { border-left-color: var(--accent); }
+  .row.b-stretch { border-left-color: var(--caution); }
+  .row.b-skip    { border-left-color: var(--line-firm); }
+
+  .row.done { opacity: .5; }
+  .row.done .title { text-decoration: line-through; }
+
+  .mark {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 17px; height: 17px;
+    margin: 3px 0 0;
+    border: 1.5px solid var(--line-firm);
+    border-radius: 3px;
+    background: var(--surface);
+    cursor: pointer;
+    display: grid;
+    place-content: center;
+  }
+  .mark:checked {
+    background: var(--strong);
+    border-color: var(--strong);
+  }
+  .mark:checked::after {
+    content: "";
+    width: 4px; height: 8px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(43deg) translate(-1px, -1px);
+  }
+
+  .score {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: -.02em;
+    text-align: right;
+    padding-top: 1px;
+  }
+  .b-strong  .score { color: var(--strong); }
+  .b-worth   .score { color: var(--accent); }
+  .b-stretch .score { color: var(--caution); }
+  .b-skip    .score { color: var(--dim); }
+
+  .main { min-width: 0; }
+
+  .rowlink {
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.35;
+    display: inline-block;
+  }
+  .rowlink:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+  .rowlink::after { content: " \2197"; font-weight: 400; color: var(--muted); font-size: 13px; }
+
+  .meta {
+    margin-top: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 9px;
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+  .co {
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+  .loc { min-width: 0; overflow-wrap: anywhere; }
+
+  .via {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 10.5px;
+    color: var(--muted);
+    opacity: .8;
+    white-space: nowrap;
+  }
+
+  .pill {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 10.5px;
+    letter-spacing: .045em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 2px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .pill.mode  { background: var(--accent-wash); color: var(--accent); }
+  .pill.open  { background: var(--strong-wash); color: var(--strong); }
+  .pill.check { background: var(--caution-wash); color: var(--caution); }
+  .pill.yrs   { background: var(--dim-wash); color: var(--dim); }
+  .pill.indirect {
+    background: var(--caution-wash);
+    color: var(--caution);
+  }
+  .pill.drafted {
+    background: var(--strong);
+    color: #fff;
+    font-weight: 600;
+  }
+  .pill.fresh {
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-weight: 600;
+  }
+
+  .why {
+    grid-column: 3 / -1;
+    margin-top: 6px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: var(--muted);
+    overflow-wrap: anywhere;
+  }
+
+  .empty {
+    padding: 44px 12px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 14.5px;
+  }
+
+  /* ---------------------------------------------------------------- footer */
+
+  footer {
+    margin-top: 46px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+  footer h3 {
+    font-size: 12px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0 0 8px;
+  }
+  footer code {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12px;
+    background: var(--raised);
+    padding: 1.5px 5px;
+    border-radius: 2px;
+    color: var(--ink-soft);
+  }
+  footer p { margin: 0 0 10px; max-width: 74ch; }
+
+  @media (max-width: 640px) {
+    .wrap { padding: 26px 15px 70px; }
+    .row { grid-template-columns: 26px 42px minmax(0, 1fr); }
+    .why { grid-column: 2 / -1; }
+    .stamp { text-align: left; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div>
+      <h1>Applications for Software Engineering</h1>
+      <p class="standfirst">
+        Every open posting from <span id="src-n">16</span> job boards, filtered down to
+        what fits one rule: remote from anywhere, or on site in Latvia. Nothing here
+        needs you to move.
+      </p>
+    </div>
+    <div class="stamp">
+      <b id="gen-date">1 Sep 2026</b><br>
+      <span id="pulled-n">1750</span> postings read<br>
+      <span id="kept-n">75</span> kept
+    </div>
+  </header>
+
+  <div class="tiles" id="tiles"></div>
+
+  <p class="caveat">
+    <span>
+      <b>These scores are keyword matching, not judgement.</b> They rank what is worth
+      your attention, nothing more. Before you apply to any of them, ask the agent to
+      run the real hundred point rubric from <code>runbook.md</code> against the full
+      description. It reads the whole posting and it disagrees with this number often.
+    </span>
+  </p>
+
+  <div class="controls">
+    <input class="search" id="q" type="search" placeholder="Search role, company or location" aria-label="Search roles">
+    <select id="company" aria-label="Filter by company"></select>
+    <select id="sort" aria-label="Sort order">
+      <option value="score">Best match first</option>
+      <option value="company">Company</option>
+      <option value="title">Role name</option>
+      <option value="floor">Least experience needed</option>
+    </select>
+    <button class="chip" id="f-direct" type="button" aria-pressed="true">Apply direct only</button>
+    <button class="chip" id="f-new" type="button" aria-pressed="false">New since last run</button>
+    <button class="chip" id="f-nofloor" type="button" aria-pressed="false">No years demanded</button>
+    <button class="chip" id="f-hide" type="button" aria-pressed="false">Hide applied</button>
+    <span class="count" id="count"></span>
+  </div>
+
+  <div id="list"></div>
+
+  <footer>
+    <h3>How to use this</h3>
+    <p>
+      Tick a role once you have applied. The ticks are saved in this browser only, so
+      they follow this device and nothing else. The durable record is
+      <code>applications.md</code> in the workspace, which is where you should log
+      anything you want to still have in three months.
+    </p>
+    <p>
+      This page is a snapshot taken on <span id="gen-date-2">1 Sep 2026</span>. Postings
+      close. To refresh it, run <code>node scripts/fetch-jobs.mjs</code> and ask for the
+      page to be republished.
+    </p>
+    <h3>Where these come from</h3>
+    <p>
+      Company job boards read directly (Greenhouse, Lever, Ashby), plus five remote
+      job aggregators: <a href="https://remoteok.com" rel="noopener">Remote OK</a>,
+      Remotive, Arbeitnow, Jobicy and Himalayas. Sources marked <b>via</b> on a row
+      came from an aggregator rather than the employer's own board, so check the
+      posting is still open before you spend time on it.
+    </p>
+
+    <h3>What the labels mean</h3>
+    <p>
+      <b>Bands</b> follow the thresholds in <code>runbook.md</code>: strong at 75 and
+      above, worth applying from 55, a stretch from 40, and below that a skip.
+      <b>Open to Latvia</b> means the posting does not restrict remote work to a list of
+      countries that excludes you. <b>Confirm hiring</b> means it might, and you should
+      ask before spending an evening on the application. <b>Years</b> is the experience
+      floor read out of the posting body, which is the one place it is ever stated: a
+      role titled Engineer I can still demand five years.
+    </p>
+  </footer>
+</div>
+
+<script>
+  const DATA = /*__JOBS__*/;
+
+  const BANDS = [
+    { id: 'strong',  label: 'Strong fit',      rule: '75 and above', min: 75, cls: 'b-strong'  },
+    { id: 'worth',   label: 'Worth applying',  rule: '55 to 74',     min: 55, cls: 'b-worth'   },
+    { id: 'stretch', label: 'A stretch',       rule: '40 to 54',     min: 40, cls: 'b-stretch' },
+    { id: 'skip',    label: 'Probably skip',   rule: 'below 40',     min: 0,  cls: 'b-skip'    }
+  ];
+  const bandOf = s => BANDS.find(b => s >= b.min);
+
+  // Applied ticks live per browser. Every access is guarded because the storage
+  // accessor itself throws in private windows and preview contexts.
+  const KEY = 'jobqueue.applied.v1';
+  function loadDone() {
+    try { return new Set(JSON.parse(localStorage.getItem(KEY) || '[]')); }
+    catch (e) { return new Set(); }
+  }
+  function saveDone(set) {
+    try { localStorage.setItem(KEY, JSON.stringify([...set])); } catch (e) {}
+  }
+  let done = loadDone();
+
+  const el = {
+    q: document.getElementById('q'),
+    company: document.getElementById('company'),
+    sort: document.getElementById('sort'),
+    direct: document.getElementById('f-direct'),
+    fresh: document.getElementById('f-new'),
+    nofloor: document.getElementById('f-nofloor'),
+    hide: document.getElementById('f-hide'),
+    list: document.getElementById('list'),
+    count: document.getElementById('count'),
+    tiles: document.getElementById('tiles')
+  };
+
+  // Header numbers
+  const gen = new Date(DATA.generated);
+  const genStr = gen.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  document.getElementById('gen-date').textContent = genStr;
+  document.getElementById('gen-date-2').textContent = genStr;
+  document.getElementById('pulled-n').textContent = DATA.pulled.toLocaleString('en-GB');
+  document.getElementById('kept-n').textContent = DATA.jobs.length;
+  document.getElementById('src-n').textContent = DATA.sources;
+
+  // Company filter
+  const companies = [...new Set(DATA.jobs.map(j => j.company))].sort();
+  el.company.innerHTML = '<option value="">All companies</option>' +
+    companies.map(c => '<option value="' + esc(c) + '">' + esc(c) + ' (' +
+      DATA.jobs.filter(j => j.company === c).length + ')</option>').join('');
+
+  function tiles() {
+    const strong = DATA.jobs.filter(j => j.score >= 75).length;
+    const worth = DATA.jobs.filter(j => j.score >= 55 && j.score < 75).length;
+    const nofloor = DATA.jobs.filter(j => j.floor === null).length;
+    const cells = [
+      { n: DATA.jobs.length, k: 'roles kept', cls: '' },
+      { n: strong, k: 'strong fit', cls: 'is-strong' },
+      { n: worth, k: 'worth applying', cls: 'is-accent' },
+      { n: nofloor, k: 'no years demanded', cls: '' },
+      { n: DATA.jobs.filter(j => j.direct).length, k: 'apply direct', cls: 'is-strong' },
+      { n: DATA.jobs.filter(j => j.isNew).length, k: 'new since last run', cls: 'is-accent' },
+      { n: companies.length, k: 'companies hiring', cls: '' },
+      { n: DATA.jobs.filter(j => j.status).length, k: 'drafted by agent', cls: 'is-accent' },
+      { n: done.size, k: 'applied', cls: '' }
+    ];
+    el.tiles.innerHTML = cells.map(c =>
+      '<div class="tile ' + c.cls + '"><span class="n">' + c.n +
+      '</span><span class="k">' + c.k + '</span></div>').join('');
+  }
+
+  // Declared, not assigned to a const, so it hoists above the company filter
+  // that runs earlier in this script.
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, c =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+  }
+
+  // Escaping alone does not make a URL safe to put in href: an escaped
+  // "javascript:" still fires on click. These come from third party job board
+  // APIs, so the scheme is checked rather than trusted.
+  function safeUrl(u) {
+    try {
+      const parsed = new URL(String(u), location.href);
+      return (parsed.protocol === 'https:' || parsed.protocol === 'http:')
+        ? parsed.href : '';
+    } catch (e) { return ''; }
+  }
+
+  function render() {
+    const q = el.q.value.trim().toLowerCase();
+    const co = el.company.value;
+    const onlyDirect = el.direct.getAttribute('aria-pressed') === 'true';
+    const onlyNew = el.fresh.getAttribute('aria-pressed') === 'true';
+    const onlyNoFloor = el.nofloor.getAttribute('aria-pressed') === 'true';
+    const hideDone = el.hide.getAttribute('aria-pressed') === 'true';
+
+    let rows = DATA.jobs.filter(j => {
+      if (co && j.company !== co) return false;
+      if (onlyDirect && !j.direct) return false;
+      if (onlyNew && !j.isNew) return false;
+      if (onlyNoFloor && j.floor !== null) return false;
+      if (hideDone && done.has(j.url)) return false;
+      if (!q) return true;
+      return (j.title + ' ' + j.company + ' ' + j.location).toLowerCase().includes(q);
+    });
+
+    const s = el.sort.value;
+    rows.sort((a, b) =>
+      s === 'company' ? a.company.localeCompare(b.company) || b.score - a.score :
+      s === 'title'   ? a.title.localeCompare(b.title) :
+      s === 'floor'   ? (a.floor === null ? -1 : a.floor) - (b.floor === null ? -1 : b.floor) || b.score - a.score :
+                        b.score - a.score);
+
+    el.count.textContent = rows.length + ' of ' + DATA.jobs.length + ' shown';
+
+    if (!rows.length) {
+      el.list.innerHTML = '<p class="empty">Nothing matches that. Try clearing the search or the filters.</p>';
+      return;
+    }
+
+    let html = '';
+    if (s === 'score') {
+      for (const band of BANDS) {
+        const inBand = rows.filter(j => bandOf(j.score).id === band.id);
+        if (!inBand.length) continue;
+        html += '<div class="band-head"><h2>' + band.label + '</h2>' +
+          '<span class="rule">' + band.rule + '</span>' +
+          '<span class="tally">' + inBand.length + '</span></div>' +
+          '<ol class="rows">' + inBand.map(rowHtml).join('') + '</ol>';
+      }
+    } else {
+      html = '<ol class="rows">' + rows.map(rowHtml).join('') + '</ol>';
+    }
+    el.list.innerHTML = html;
+  }
+
+  function rowHtml(j) {
+    const band = bandOf(j.score);
+    const isDone = done.has(j.url);
+    const href = safeUrl(j.url);
+    const openToLatvia = !/confirm they can hire/.test(j.why);
+    const pills =
+      (j.status ? '<span class="pill drafted">' + esc(j.status) + '</span>' : '') +
+      (j.isNew ? '<span class="pill fresh">new</span>' : '') +
+      (j.direct ? '' : '<span class="pill indirect">not a direct link</span>') +
+      '<span class="pill mode">' + esc(j.mode) + '</span>' +
+      (openToLatvia
+        ? '<span class="pill open">open to Latvia</span>'
+        : '<span class="pill check">confirm hiring</span>') +
+      (j.floor !== null ? '<span class="pill yrs">' + j.floor + 'y needed</span>' : '');
+
+    return '<li class="row ' + band.cls + (isDone ? ' done' : '') + '">' +
+      '<input class="mark" type="checkbox" ' + (isDone ? 'checked' : '') +
+        ' data-url="' + esc(j.url) + '" aria-label="Mark ' + esc(j.title) + ' as applied">' +
+      '<div class="score">' + j.score + '</div>' +
+      '<div class="main">' +
+        (href
+          ? '<a class="rowlink" href="' + esc(href) + '" target="_blank" rel="noopener noreferrer">' +
+              esc(j.title) + '</a>'
+          : '<span class="rowlink" style="cursor:default">' + esc(j.title) + '</span>') +
+        '<div class="meta">' +
+          '<span class="co">' + esc(j.company) + '</span>' +
+          pills +
+          '<span class="loc">' + esc(j.location || 'location not stated') + '</span>' +
+          (j.via ? '<span class="via">via ' + esc(j.via) + '</span>' : '') +
+        '</div>' +
+      '</div>' +
+      '<div class="why">' + esc(j.why) + '</div>' +
+    '</li>';
+  }
+
+  el.list.addEventListener('change', e => {
+    const box = e.target.closest('.mark');
+    if (!box) return;
+    const url = box.dataset.url;
+    if (box.checked) done.add(url); else done.delete(url);
+    saveDone(done);
+    box.closest('.row').classList.toggle('done', box.checked);
+    tiles();
+    if (el.hide.getAttribute('aria-pressed') === 'true') render();
+  });
+
+  for (const c of [el.direct, el.fresh, el.nofloor, el.hide]) {
+    c.addEventListener('click', () => {
+      c.setAttribute('aria-pressed', c.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+      render();
+    });
+  }
+  el.q.addEventListener('input', render);
+  el.company.addEventListener('change', render);
+  el.sort.addEventListener('change', render);
+
+  tiles();
+  render();
+</script>

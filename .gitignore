@@ -14,4 +14,7 @@ shortlist.md
 # Captured postings and anything you draft from them.
 jobs/
 
+# Where you applied and when, if you use the dashboard's tracker format.
+applications.md
+
 node_modules/
