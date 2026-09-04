@@ -1,5 +1,5 @@
 {
-  "name": "ats-job-aggregator",
+  "name": "apply-filter",
   "version": "1.0.0",
   "description": "Reads open engineering roles from companies' own applicant tracking systems and filters them by whether you could actually take the job",
   "type": "module",

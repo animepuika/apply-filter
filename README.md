@@ -1,4 +1,4 @@
-# ats-job-aggregator
+# apply-filter
 
 Reads open engineering roles straight from companies' own applicant tracking
 systems, filters them by whether you could actually take the job, and ranks
